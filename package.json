@@ -1,0 +1,49 @@
+{
+  "name": "build-info",
+  "version": "1.0.0",
+  "description": "Generate build metadata for React + Vite projects to be included in their build output",
+  "main": "dist/index.js",
+  "bin": {
+    "build-info": "dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./react": "./dist/react.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "eslint src --ext .ts,.tsx",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "keywords": [
+    "build",
+    "metadata",
+    "git",
+    "deployment",
+    "cloudflare-pages",
+    "vite",
+    "react"
+  ],
+  "author": "Joseph Janiga <joseph@janiga.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "commander": "^11.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
