@@ -5,7 +5,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Build outputs
-dist/
+# dist/
 build/
 
 # TypeScript
@@ -96,3 +96,6 @@ jspm_packages/
 
 # docs 
 docs/*.md
+
+# test consumder
+test-consumer/
