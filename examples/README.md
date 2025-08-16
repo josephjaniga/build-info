@@ -29,31 +29,31 @@ npx build-info --help
 ### 3. Use in Node.js
 
 ```javascript
-const { generateBuildInfo, getGitInfo } = require('build-info');
+const { generateBuildInfo, getGitInfo } = require("build-info");
 
 // Get Git information
 const gitInfo = getGitInfo();
-console.log('Repository:', gitInfo.repository);
-console.log('Commit:', gitInfo.shortHash);
+console.log("Repository:", gitInfo.repository);
+console.log("Commit:", gitInfo.shortHash);
 
 // Generate build info file
 generateBuildInfo({
-  outdir: './dist',
-  filename: 'build-info.json',
-  quiet: true
+  outdir: "./dist",
+  filename: "build-info.json",
+  quiet: true,
 });
 ```
 
 ### 4. Use in React
 
 ```jsx
-import { useBuildInfo } from 'build-info/react';
+import { useBuildInfo } from "build-info/react";
 
 function App() {
   const { buildInfo, loading, error } = useBuildInfo({
-    url: '/build-info.json',
+    url: "/build-info.json",
     retry: 3,
-    timeout: 5000
+    timeout: 5000,
   });
 
   if (loading) return <div>Loading build info...</div>;
@@ -110,19 +110,19 @@ Add to your `package.json`:
 
 ```javascript
 // vite.config.js
-import { defineConfig } from 'vite';
-import { execSync } from 'child_process';
+import { defineConfig } from "vite";
+import { execSync } from "child_process";
 
 export default defineConfig({
   plugins: [
     {
-      name: 'build-info',
+      name: "build-info",
       buildStart() {
         // Generate build info before build starts
-        execSync('npx build-info -o ./public');
-      }
-    }
-  ]
+        execSync("npx build-info -o ./public");
+      },
+    },
+  ],
 });
 ```
 
@@ -130,16 +130,16 @@ export default defineConfig({
 
 ```javascript
 // next.config.js
-const { execSync } = require('child_process');
+const { execSync } = require("child_process");
 
 module.exports = {
   webpack: (config, { buildId, dev, isServer }) => {
     if (!dev) {
       // Generate build info during production build
-      execSync('npx build-info -o ./public');
+      execSync("npx build-info -o ./public");
     }
     return config;
-  }
+  },
 };
 ```
 
@@ -170,11 +170,11 @@ The package automatically detects CI/CD environment variables:
 
 ```javascript
 const { buildInfo, loading, error, refetch } = useBuildInfo({
-  url: '/build-info.json',        // Custom URL path
-  enabled: true,                  // Enable/disable fetching
-  ssr: false,                     // Enable server-side fetching
-  retry: 1,                       // Number of retry attempts
-  timeout: 5000                   // Request timeout in ms
+  url: "/build-info.json", // Custom URL path
+  enabled: true, // Enable/disable fetching
+  ssr: false, // Enable server-side fetching
+  retry: 1, // Number of retry attempts
+  timeout: 5000, // Request timeout in ms
 });
 ```
 
