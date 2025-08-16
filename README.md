@@ -152,6 +152,16 @@ The tool automatically detects and uses environment variables from:
    https://your-app.pages.dev/build-info.json
    ```
 
+## Examples
+
+See the [`examples/`](./examples/) directory for complete usage examples, including:
+
+- CLI usage examples
+- Node.js integration  
+- React hook usage
+- Build process integration (Vite, Next.js)
+- Test files to verify functionality
+
 ## React Integration
 
 > **Note**: React is an optional peer dependency. The React hook will only work if React is installed in your project.
