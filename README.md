@@ -121,9 +121,53 @@ The tool automatically detects and uses environment variables from:
    https://your-app.pages.dev/build-info.json
    ```
 
-## React Integration (Coming Soon)
+## React Integration
 
-Future versions will include React hooks and components for displaying build information in your app.
+> **Note**: React is an optional peer dependency. The React hook will only work if React is installed in your project.
+
+### useBuildInfo Hook
+
+Import and use the hook in your React components:
+
+```typescript
+import { useBuildInfo } from "build-info/react";
+
+function App() {
+  const { buildInfo, loading, error, refetch } = useBuildInfo({
+    url: "/build-info.json", // optional, defaults to '/build-info.json'
+    enabled: true, // optional, defaults to true
+  });
+
+  if (loading) return <div>Loading build info...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!buildInfo) return <div>No build info available</div>;
+
+  return (
+    <div>
+      <p>Repository: {buildInfo.repository}</p>
+      <p>Commit: {buildInfo.shortHash}</p>
+      <p>Branch: {buildInfo.branch}</p>
+      <p>Built: {new Date(buildInfo.buildTimestamp * 1000).toLocaleString()}</p>
+    </div>
+  );
+}
+```
+
+### Hook Options
+
+| Option    | Type      | Default              | Description                          |
+| --------- | --------- | -------------------- | ------------------------------------ |
+| `url`     | `string`  | `'/build-info.json'` | Path to the build-info.json file     |
+| `enabled` | `boolean` | `true`               | Whether to fetch build info on mount |
+
+### Hook Return Value
+
+| Property    | Type                | Description                                 |
+| ----------- | ------------------- | ------------------------------------------- |
+| `buildInfo` | `BuildInfo \| null` | The build info data or null if not loaded   |
+| `loading`   | `boolean`           | Whether the request is in progress          |
+| `error`     | `string \| null`    | Error message if the request failed         |
+| `refetch`   | `() => void`        | Function to manually refetch the build info |
 
 ## Requirements
 
