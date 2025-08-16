@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npx build-info -o ./public",
+    "build": "vite build && npx build-info -o ./dist",
     "preview": "vite preview",
     "reset": "node reset.js",
     "test": "echo \"Error: no test specified\" && exit 1"
