@@ -87,7 +87,7 @@ The CLI generates a `build-info.json` file with the following structure:
 
 ## Programmatic Usage
 
-```typescript
+````typescript
 import { generateBuildInfo } from "build-info";
 
 const buildInfo = await generateBuildInfo({
@@ -98,6 +98,37 @@ const buildInfo = await generateBuildInfo({
 
 console.log(buildInfo.repository); // "my-app"
 console.log(buildInfo.shortHash); // "d4466f6"
+
+## Framework-Specific Usage
+
+### Next.js
+
+```typescript
+import { useBuildInfo } from 'build-info/react';
+
+// For SSR/SSG (fetch on server)
+const { buildInfo } = useBuildInfo({ ssr: true });
+
+// For client-only
+const { buildInfo } = useBuildInfo({ ssr: false });
+````
+
+### Vite
+
+```typescript
+import { useBuildInfo } from "build-info/react";
+
+// Standard usage (works with HMR)
+const { buildInfo } = useBuildInfo();
+```
+
+### Create React App
+
+```typescript
+import { useBuildInfo } from "build-info/react";
+
+// Standard usage
+const { buildInfo } = useBuildInfo();
 ```
 
 ## CI/CD Environment Support
@@ -125,6 +156,18 @@ The tool automatically detects and uses environment variables from:
 
 > **Note**: React is an optional peer dependency. The React hook will only work if React is installed in your project.
 
+### Universal React Hook
+
+The `useBuildInfo` hook is designed to work with any modern React setup:
+
+- ✅ **React 16.8+** (hooks support)
+- ✅ **Next.js** (SSR, SSG, App Router, Pages Router)
+- ✅ **Vite** (ESM, HMR, build optimization)
+- ✅ **Create React App** (CJS, legacy support)
+- ✅ **Gatsby** (Static builds)
+- ✅ **Remix** (SSR, nested routes)
+- ✅ **Astro** (Islands architecture)
+
 ### useBuildInfo Hook
 
 Import and use the hook in your React components:
@@ -136,6 +179,9 @@ function App() {
   const { buildInfo, loading, error, refetch } = useBuildInfo({
     url: "/build-info.json", // optional, defaults to '/build-info.json'
     enabled: true, // optional, defaults to true
+    ssr: false, // optional, enable for SSR frameworks like Next.js
+    retry: 1, // optional, number of retry attempts
+    timeout: 5000, // optional, request timeout in ms
   });
 
   if (loading) return <div>Loading build info...</div>;
@@ -159,6 +205,9 @@ function App() {
 | --------- | --------- | -------------------- | ------------------------------------ |
 | `url`     | `string`  | `'/build-info.json'` | Path to the build-info.json file     |
 | `enabled` | `boolean` | `true`               | Whether to fetch build info on mount |
+| `ssr`     | `boolean` | `false`              | Enable SSR fetching (Next.js, etc.)  |
+| `retry`   | `number`  | `1`                  | Number of retry attempts on failure  |
+| `timeout` | `number`  | `5000`               | Request timeout in milliseconds      |
 
 ### Hook Return Value
 
