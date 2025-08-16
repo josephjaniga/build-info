@@ -28,7 +28,7 @@ program
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
-      console.error("Error:", errorMessage);
+      console.error("❌ Error:", errorMessage);
       process.exit(1);
     }
   });

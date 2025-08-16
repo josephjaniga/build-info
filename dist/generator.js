@@ -34,14 +34,15 @@ function generateBuildInfo(options = {}) {
     }
     // Log success (unless quiet mode)
     if (!quiet) {
-        console.log("Build info created successfully:");
-        console.log(` Repository: ${buildInfo.repository}`);
+        console.log("📦 build-info v1.0.0");
+        console.log("✓ Build info generated");
+        console.log(`  Repository: ${buildInfo.repository}`);
         if (buildInfo.branch) {
-            console.log(` Branch: ${buildInfo.branch}`);
+            console.log(`  Branch: ${buildInfo.branch}`);
         }
-        console.log(` Commit: ${buildInfo.shortHash}`);
-        console.log(` Build Time: ${buildInfo.buildDate}`);
-        console.log(` Output: ${outputPath}`);
+        console.log(`  Commit: ${buildInfo.shortHash}`);
+        console.log(`  Build Time: ${buildInfo.buildDate}`);
+        console.log(`  Output: ${outputPath}`);
     }
     return buildInfo;
 }
