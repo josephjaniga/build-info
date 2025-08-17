@@ -1,0 +1,38 @@
+{
+  "window.title": "📦 Build Info — ${rootName}",
+  "workbench.colorCustomizations": {
+    // 📦 Title Bar
+    "titleBar.activeBackground": "#1e293b",
+    "titleBar.inactiveBackground": "#1e293b",
+    "titleBar.activeForeground": "#ffffff",
+    "titleBar.inactiveForeground": "#ffffff",
+
+    // 📦 Status Bar (bottom)
+    "statusBar.background": "#1e293b",
+    "statusBar.foreground": "#ffffff",
+    "statusBar.noFolderBackground": "#1e293b",
+    "statusBar.debuggingBackground": "#334155",
+
+    // 📦 Activity Bar (left vertical bar)
+    "activityBar.background": "#1e293b",
+    "activityBar.foreground": "#ffffff",
+    "activityBar.activeBorder": "#60a5fa",
+
+    // 📦 Side Bar (Explorer, etc.)
+    "sideBar.background": "#1e293b",
+    "sideBar.foreground": "#ffffff",
+
+    // 📦 Editor Tabs
+    "tab.activeBackground": "#334155",
+    "tab.activeForeground": "#ffffff",
+    "tab.inactiveBackground": "#1e293b",
+    "tab.inactiveForeground": "#94a3b8",
+
+    // 📦 Panel (Terminal / Output)
+    "panel.background": "#1e293b",
+    "panel.border": "#60a5fa"
+
+    // 📦 Editor Background
+    // "editor.background": "#0f172a"
+  }
+}
