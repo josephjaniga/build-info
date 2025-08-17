@@ -49,7 +49,7 @@ function generateBuildInfo(options = {}) {
             yellow: "\x1b[33m",
             blue: "\x1b[34m",
             gray: "\x1b[90m",
-            orange: "\x1b[38;5;208m",
+            red: "\x1b[31m", // Red (very reliable across terminals)
             white: "\x1b[37m",
             bold: "\x1b[1m",
             reset: "\x1b[0m",
@@ -65,11 +65,12 @@ function generateBuildInfo(options = {}) {
         console.log(`  ${colors.gray}Commit:${colors.reset} ${colors.yellow}${buildInfo.shortHash}${colors.reset}`);
         console.log(`  ${colors.gray}Build Time:${colors.reset} ${buildInfo.buildDate}`);
         console.log(""); // Blank line before file info
-        // Split the path to colorize different parts
-        const pathParts = outputPath.split("/");
+        // Split the path to colorize different parts (handle both / and \ separators)
+        const pathParts = outputPath.replace(/\\/g, "/").split("/");
         const folderName = pathParts.slice(0, -1).join("/");
         const fileName = pathParts[pathParts.length - 1];
-        console.log(`${colors.orange}${folderName}${colors.white}/${colors.blue}${fileName}${colors.reset}                   ${colors.white}${colors.bold}${fileSizeKB} kB${colors.reset} │ gzip:  ${gzipSizeKB} kB`);
+        const separator = outputPath.includes("\\") ? "\\" : "/";
+        console.log(`${colors.red}${folderName}${colors.white}${separator}${colors.blue}${fileName}${colors.reset}                   ${colors.white}${colors.bold}${fileSizeKB} kB${colors.reset} │ gzip:  ${gzipSizeKB} kB`);
     }
     return buildInfo;
 }
