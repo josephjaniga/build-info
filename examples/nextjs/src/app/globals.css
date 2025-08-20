@@ -1,0 +1,78 @@
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.status {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+}
+
+.loading {
+  background-color: #f0f9ff;
+  border: 1px solid #0ea5e9;
+}
+
+.error {
+  background-color: #fef2f2;
+  border: 1px solid #ef4444;
+}
+
+.success {
+  background-color: #f0fdf4;
+  border: 1px solid #22c55e;
+}
+
+.build-info {
+  display: grid;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0.5rem 0;
+}
+
+button:hover {
+  background-color: #2563eb;
+}

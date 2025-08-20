@@ -10,7 +10,7 @@ program
   .description(
     "Generate build metadata for React + Vite projects to be included in their build output"
   )
-  .version("1.0.0")
+  .version("1.1.0")
   .option(
     "-o, --outdir <directory>",
     "Output directory for build-info.json",

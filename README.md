@@ -85,9 +85,71 @@ The CLI generates a `build-info.json` file with the following structure:
 - **buildTimestamp** - Unix timestamp (seconds)
 - **buildDate** - ISO 8601 UTC date
 
+## Import Options
+
+The package provides multiple entry points for maximum compatibility:
+
+### 🎯 **Recommended for React Apps**
+
+```typescript
+import { useBuildInfo } from "build-info/react";
+```
+
+✅ **Safe for all frameworks** (Vite, Next.js, Create React App, etc.)
+
+### 🔧 **Recommended for Build Scripts**
+
+```typescript
+import { generateBuildInfo, getGitInfo } from "build-info/server";
+```
+
+✅ **Safe for Node.js environments**
+
+### 📦 **Backward Compatible (Legacy)**
+
+```typescript
+import { generateBuildInfo, getGitInfo, useBuildInfo } from "build-info";
+```
+
+⚠️ **May cause bundling issues in Next.js** - Use for existing Vite projects only
+
+### 🎨 **Alternative Client Import**
+
+```typescript
+import { useBuildInfo } from "build-info/client";
+```
+
+✅ **Safe for all frameworks** (alias for `build-info/react`)
+
+### 🔍 **Individual Module Imports**
+
+```typescript
+import { generateBuildInfo } from "build-info/generator";
+import { getGitInfo } from "build-info/git";
+```
+
+✅ **For specific use cases**
+
 ## Programmatic Usage
 
-````typescript
+### Server-Side Usage (Recommended)
+
+```typescript
+import { generateBuildInfo } from "build-info/server";
+
+const buildInfo = await generateBuildInfo({
+  outdir: "./dist",
+  filename: "build-info.json",
+  quiet: false,
+});
+
+console.log(buildInfo.repository); // "my-app"
+console.log(buildInfo.shortHash); // "d4466f6"
+```
+
+### Legacy Usage (Backward Compatible)
+
+```typescript
 import { generateBuildInfo } from "build-info";
 
 const buildInfo = await generateBuildInfo({
@@ -98,20 +160,21 @@ const buildInfo = await generateBuildInfo({
 
 console.log(buildInfo.repository); // "my-app"
 console.log(buildInfo.shortHash); // "d4466f6"
+```
 
 ## Framework-Specific Usage
 
 ### Next.js
 
 ```typescript
-import { useBuildInfo } from 'build-info/react';
+import { useBuildInfo } from "build-info/react";
 
 // For SSR/SSG (fetch on server)
 const { buildInfo } = useBuildInfo({ ssr: true });
 
 // For client-only
 const { buildInfo } = useBuildInfo({ ssr: false });
-````
+```
 
 ### Vite
 
@@ -157,10 +220,27 @@ The tool automatically detects and uses environment variables from:
 See the [`examples/`](./examples/) directory for complete usage examples, including:
 
 - CLI usage examples
-- Node.js integration  
+- Node.js integration
 - React hook usage
 - Build process integration (Vite, Next.js)
-- Test files to verify functionality
+
+## Testing
+
+The package includes several test scripts to verify functionality:
+
+```bash
+# Run comprehensive workflow test
+npm run test:manual
+
+# Test main module exports
+npm run test:main
+
+# Test React hook imports
+npm run test:react
+
+# Run Jest unit tests
+npm test
+```
 
 ## React Integration
 

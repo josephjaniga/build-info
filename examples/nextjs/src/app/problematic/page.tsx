@@ -1,7 +1,8 @@
-import { useBuildInfo } from "build-info/react";
-import "./App.css";
+"use client";
 
-function App() {
+import { useBuildInfo } from "build-info"; // This import may cause bundling issues
+
+export default function ProblematicPage() {
   const { buildInfo, loading, error, refetch } = useBuildInfo({
     url: "/build-info.json",
     retry: 2,
@@ -9,13 +10,28 @@ function App() {
   });
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>build-info Example</h1>
-        <p>This demonstrates the build-info React hook fetching from HTTP</p>
+    <div className="container">
+      <header>
+        <h1>⚠️ Problematic Import Example</h1>
+        <p>
+          This page uses the problematic import that may cause bundling issues
+        </p>
       </header>
 
-      <main className="App-main">
+      <main>
+        <div className="status error">
+          <h2>⚠️ Warning</h2>
+          <p>
+            This page uses{" "}
+            <code>import {"{ useBuildInfo }"} from "build-info"</code> which
+            includes Node.js modules.
+          </p>
+          <p>
+            <strong>Expected behavior:</strong> This may cause webpack bundling
+            errors during build.
+          </p>
+        </div>
+
         {loading && (
           <div className="status loading">
             <h2>🔄 Loading build info...</h2>
@@ -56,18 +72,27 @@ function App() {
         )}
 
         <div className="instructions">
-          <h3>How it works:</h3>
-          <ol>
-            <li>
-              Vite starts and generates build-info.json in the public folder
-            </li>
-            <li>The React hook fetches /build-info.json via HTTP</li>
-            <li>Build information is displayed above</li>
-          </ol>
+          <h3>Problematic Import:</h3>
+          <pre>{'import { useBuildInfo } from "build-info";'}</pre>
+
+          <h3>Why this is problematic:</h3>
+          <ul>
+            <li>Includes all exports from the main entry point</li>
+            <li>Bundles Node.js modules (fs, path, zlib, child_process)</li>
+            <li>May cause webpack errors in Next.js</li>
+            <li>Larger bundle size due to unnecessary modules</li>
+          </ul>
+
+          <h3>Better Alternative:</h3>
+          <pre>{'import { useBuildInfo } from "build-info/react";'}</pre>
+
+          <p>
+            <a href="/" className="button">
+              ← Back to Working Example
+            </a>
+          </p>
         </div>
       </main>
     </div>
   );
 }
-
-export default App;

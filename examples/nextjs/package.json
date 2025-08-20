@@ -1,0 +1,25 @@
+{
+  "name": "nextjs-build-info-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && npx build-info --output .next/static/build-info.json",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "build-info": "github:josephjaniga/build-info",
+    "next": "15.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "15.3.0",
+    "typescript": "^5.0.0"
+  }
+}

@@ -1,201 +1,86 @@
-# build-info Examples
+# Build-Info Examples
 
-This directory contains examples demonstrating how to use the `build-info` package as a Git dependency.
+This directory contains examples demonstrating how to use the `build-info` package with different frameworks and bundlers.
 
-## Quick Start
+## Examples
 
-### 1. Install the Package
+### 📦 [Vite Example](./vite/)
 
-```bash
-npm install git+https://github.com/josephjaniga/build-info.git
+A working example using Vite that demonstrates:
+
+- ✅ Successful integration with Vite
+- ✅ React hook usage
+- ✅ Build process integration
+- ✅ No bundling issues
+
+**Key takeaway**: Vite handles Node.js modules differently and works without issues.
+
+### ⚠️ [Next.js Example](./nextjs/)
+
+An example that demonstrates the **bundling issue** with Next.js:
+
+- ❌ Webpack bundling errors
+- ❌ Node.js module resolution problems
+- ✅ Same React hook code as Vite
+- ✅ Identical functionality
+
+**Key takeaway**: Next.js is stricter about Node.js modules and requires special handling.
+
+## The Problem
+
+The `build-info` package includes both client-safe and server-side modules:
+
+```typescript
+// Client-safe (works in browser)
+import { useBuildInfo } from "build-info";
+
+// Server-side (uses Node.js modules)
+import { generateBuildInfo, getGitInfo } from "build-info";
 ```
 
-### 2. Use the CLI Tool
+When importing from the main entry point, bundlers like Next.js try to include all modules, including those that use Node.js built-ins (`fs`, `path`, `zlib`, `child_process`).
 
-```bash
-# Generate build info with default settings
-npx build-info
+## Framework Differences
 
-# Generate with custom output directory and filename
-npx build-info --outdir ./public --filename version.json
+| Framework        | Node.js Module Handling | Status               |
+| ---------------- | ----------------------- | -------------------- |
+| Vite             | Permissive, polyfills   | ✅ Works             |
+| Next.js          | Strict, requires config | ❌ Fails             |
+| Create React App | Moderate                | ⚠️ May work          |
+| Webpack          | Configurable            | ⚠️ Depends on config |
 
-# Generate quietly (no console output)
-npx build-info --quiet
-
-# Show help
-npx build-info --help
-```
-
-### 3. Use in Node.js
-
-```javascript
-const { generateBuildInfo, getGitInfo } = require("build-info");
-
-// Get Git information
-const gitInfo = getGitInfo();
-console.log("Repository:", gitInfo.repository);
-console.log("Commit:", gitInfo.shortHash);
-
-// Generate build info file
-generateBuildInfo({
-  outdir: "./dist",
-  filename: "build-info.json",
-  quiet: true,
-});
-```
-
-### 4. Use in React
-
-```jsx
-import { useBuildInfo } from "build-info/react";
-
-function App() {
-  const { buildInfo, loading, error } = useBuildInfo({
-    url: "/build-info.json",
-    retry: 3,
-    timeout: 5000,
-  });
-
-  if (loading) return <div>Loading build info...</div>;
-  if (error) return <div>Error: {error}</div>;
-
-  return (
-    <div>
-      <h1>Build Information</h1>
-      <p>Repository: {buildInfo?.repository}</p>
-      <p>Commit: {buildInfo?.shortHash}</p>
-      <p>Branch: {buildInfo?.branch}</p>
-      <p>Build Time: {buildInfo?.buildDate}</p>
-    </div>
-  );
-}
-```
-
-## Test Files
-
-This directory includes several test files to verify the package functionality:
-
-- `test-react.js` - Tests React hook import and compatibility
-- `test-main.js` - Tests main module exports
-- `test-complete.js` - Comprehensive workflow test
-
-Run the tests:
-
-```bash
-# Test React hook
-node test-react.js
-
-# Test main module
-node test-main.js
-
-# Test complete workflow
-node test-complete.js
-```
-
-## Package.json Configuration
-
-Add to your `package.json`:
-
-```json
-{
-  "dependencies": {
-    "build-info": "git+https://github.com/josephjaniga/build-info.git"
-  }
-}
-```
-
-## Build Process Integration
+## Testing the Examples
 
 ### Vite Example
 
-```javascript
-// vite.config.js
-import { defineConfig } from "vite";
-import { execSync } from "child_process";
-
-export default defineConfig({
-  plugins: [
-    {
-      name: "build-info",
-      buildStart() {
-        // Generate build info before build starts
-        execSync("npx build-info -o ./public");
-      },
-    },
-  ],
-});
+```bash
+cd vite
+npm install
+npm run build  # Should succeed
 ```
 
 ### Next.js Example
 
-```javascript
-// next.config.js
-const { execSync } = require("child_process");
-
-module.exports = {
-  webpack: (config, { buildId, dev, isServer }) => {
-    if (!dev) {
-      // Generate build info during production build
-      execSync("npx build-info -o ./public");
-    }
-    return config;
-  },
-};
+```bash
+cd nextjs
+npm install
+npm run build  # Should fail with webpack errors
 ```
 
-## Generated Build Info Structure
+## Solutions
 
-The package generates a `build-info.json` file with the following structure:
+These examples will be updated to demonstrate various solutions:
 
-```json
-{
-  "repository": "my-app",
-  "gitHash": "d4466f640749b3f6dc755dd8305c12c546533b16",
-  "shortHash": "d4466f6",
-  "branch": "main",
-  "buildTimestamp": 1234567890,
-  "buildDate": "2023-01-01T00:00:00.000Z"
-}
-```
+1. **Webpack Configuration** - Exclude Node.js modules
+2. **Alternative Imports** - Use client-safe entry points
+3. **Conditional Imports** - Import only what's needed
+4. **Package Structure** - Separate client/server exports
 
-## Environment Variables
+## Purpose
 
-The package automatically detects CI/CD environment variables:
+These examples help us:
 
-- `CF_PAGES_BRANCH` / `CF_PAGES_COMMIT_SHA` (Cloudflare Pages)
-- `GITHUB_REF_NAME` / `GITHUB_SHA` (GitHub Actions)
-- `VERCEL_GIT_COMMIT_REF` / `VERCEL_GIT_COMMIT_SHA` (Vercel)
-
-## React Hook Options
-
-```javascript
-const { buildInfo, loading, error, refetch } = useBuildInfo({
-  url: "/build-info.json", // Custom URL path
-  enabled: true, // Enable/disable fetching
-  ssr: false, // Enable server-side fetching
-  retry: 1, // Number of retry attempts
-  timeout: 5000, // Request timeout in ms
-});
-```
-
-## Error Handling
-
-The package includes comprehensive error handling:
-
-- Network errors with retry logic
-- Invalid JSON responses
-- Missing required fields
-- Timeout handling
-- SSR/SSG compatibility
-
-## Framework Compatibility
-
-The React hook is compatible with:
-
-- ✅ Next.js (SSR/SSG)
-- ✅ Vite
-- ✅ Create React App
-- ✅ Gatsby
-- ✅ Remix
-- ✅ Astro
-- ✅ Any React 16.8+ application
+- Understand the bundling issue
+- Test different solutions
+- Ensure backward compatibility
+- Provide clear documentation for users

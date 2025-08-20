@@ -1,6 +1,6 @@
 {
   "name": "build-info",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Generate build metadata for React + Vite projects to be included in their build output",
   "main": "dist/index.js",
   "bin": {
@@ -8,7 +8,12 @@
   },
   "exports": {
     ".": "./dist/index.js",
-    "./react": "./dist/react.js"
+    "./react": "./dist/react.js",
+    "./client": "./dist/react.js",
+    "./server": "./dist/server.js",
+    "./generator": "./dist/generator.js",
+    "./git": "./dist/git.js",
+    "./cli": "./dist/cli.js"
   },
   "files": [
     "dist"
@@ -19,6 +24,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
+    "test:manual": "node tests/test-complete.js",
+    "test:main": "node tests/test-main.js",
+    "test:react": "node tests/test-react.js",
     "lint": "eslint src --ext .ts,.tsx",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run clean && npm run build"
