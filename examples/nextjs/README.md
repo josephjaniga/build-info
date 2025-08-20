@@ -45,13 +45,13 @@ This import only includes client-safe modules:
 3. Next.js webpack can successfully build the application
 4. The React hook works as expected in the browser
 
-## Solutions
+## How It Works
 
-This example will be updated to demonstrate various solutions:
+This example demonstrates the proper way to use `build-info` with Next.js:
 
-1. **Webpack configuration** - Exclude Node.js modules from client bundling
-2. **Alternative imports** - Use client-safe import paths
-3. **Conditional imports** - Import only what's needed
+1. **Client-safe import** - Uses `build-info/react` to avoid Node.js modules
+2. **Clean bundling** - No webpack errors or bundling issues
+3. **Optimal performance** - Only imports what's needed for the client
 
 ## Testing
 

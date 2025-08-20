@@ -217,12 +217,14 @@ The tool automatically detects and uses environment variables from:
 
 ## Examples
 
-See the [`examples/`](./examples/) directory for complete usage examples, including:
+See the [`examples/`](./examples/) directory for complete working examples:
 
+- **Vite Example** - Demonstrates successful integration with Vite
+- **Next.js Example** - Demonstrates successful integration with Next.js using client-safe imports
 - CLI usage examples
 - Node.js integration
 - React hook usage
-- Build process integration (Vite, Next.js)
+- Build process integration
 
 ## Testing
 

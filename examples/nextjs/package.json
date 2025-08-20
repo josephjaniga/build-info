@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && npx build-info --output .next/static/build-info.json",
+    "build": "next build && npx build-info --outdir public",
     "start": "next start",
     "lint": "next lint"
   },

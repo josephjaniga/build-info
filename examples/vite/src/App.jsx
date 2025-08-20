@@ -1,8 +1,7 @@
-"use client";
+import { useBuildInfo } from "build-info/react";
+import "./App.css";
 
-import { useBuildInfo } from "build-info"; // This import may cause bundling issues
-
-export default function ProblematicPage() {
+function App() {
   const { buildInfo, loading, error, refetch } = useBuildInfo({
     url: "/build-info.json",
     retry: 2,
@@ -10,28 +9,13 @@ export default function ProblematicPage() {
   });
 
   return (
-    <div className="container">
-      <header>
-        <h1>⚠️ Problematic Import Example</h1>
-        <p>
-          This page uses the problematic import that may cause bundling issues
-        </p>
+    <div className="App">
+      <header className="App-header">
+        <h1>build-info Example</h1>
+        <p>This demonstrates the build-info React hook fetching from HTTP</p>
       </header>
 
-      <main>
-        <div className="status error">
-          <h2>⚠️ Warning</h2>
-          <p>
-            This page uses{" "}
-            <code>import {"{ useBuildInfo }"} from "build-info"</code> which
-            includes Node.js modules.
-          </p>
-          <p>
-            <strong>Expected behavior:</strong> This may cause webpack bundling
-            errors during build.
-          </p>
-        </div>
-
+      <main className="App-main">
         {loading && (
           <div className="status loading">
             <h2>🔄 Loading build info...</h2>
@@ -72,27 +56,18 @@ export default function ProblematicPage() {
         )}
 
         <div className="instructions">
-          <h3>Problematic Import:</h3>
-          <pre>{'import { useBuildInfo } from "build-info";'}</pre>
-
-          <h3>Why this is problematic:</h3>
-          <ul>
-            <li>Includes all exports from the main entry point</li>
-            <li>Bundles Node.js modules (fs, path, zlib, child_process)</li>
-            <li>May cause webpack errors in Next.js</li>
-            <li>Larger bundle size due to unnecessary modules</li>
-          </ul>
-
-          <h3>Better Alternative:</h3>
-          <pre>{'import { useBuildInfo } from "build-info/react";'}</pre>
-
-          <p>
-            <a href="/" className="button">
-              ← Back to Working Example
-            </a>
-          </p>
+          <h3>How it works:</h3>
+          <ol>
+            <li>
+              Vite starts and generates build-info.json in the public folder
+            </li>
+            <li>The React hook fetches /build-info.json via HTTP</li>
+            <li>Build information is displayed above</li>
+          </ol>
         </div>
       </main>
     </div>
   );
 }
+
+export default App;

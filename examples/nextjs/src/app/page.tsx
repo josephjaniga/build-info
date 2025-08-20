@@ -12,10 +12,8 @@ export default function Home() {
   return (
     <div className="container">
       <header>
-        <h1>Build-Info Next.js Example</h1>
-        <p>
-          This demonstrates the build-info React hook in a Next.js application
-        </p>
+        <h1>build-info Example</h1>
+        <p>This demonstrates the build-info React hook fetching from HTTP</p>
       </header>
 
       <main>
@@ -61,11 +59,13 @@ export default function Home() {
         <div className="instructions">
           <h3>How it works:</h3>
           <ol>
+            <li>A placeholder build-info.json exists in the public folder</li>
             <li>
-              Next.js builds and generates build-info.json in the .next/static
-              folder
+              During build, the placeholder is overwritten with real build info
             </li>
-            <li>The React hook fetches /build-info.json via HTTP</li>
+            <li>
+              The React hook fetches /build-info.json from the public folder
+            </li>
             <li>Build information is displayed above</li>
           </ol>
 
@@ -75,12 +75,6 @@ export default function Home() {
           <p>
             <strong>Note:</strong> This import uses the client-safe entry point
             and should work without bundling issues in Next.js.
-          </p>
-
-          <p>
-            <a href="/problematic" className="button">
-              View Problematic Import Example →
-            </a>
           </p>
         </div>
       </main>

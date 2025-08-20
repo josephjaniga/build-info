@@ -1,0 +1,25 @@
+{
+  "name": "test-consumer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && npx build-info -o ./dist",
+    "preview": "vite preview",
+    "reset": "node reset.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "This directory contains examples demonstrating how to use the `build-info` package as a Git dependency.",
+  "dependencies": {
+    "build-info": "github:josephjaniga/build-info",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^6.3.5"
+  }
+}

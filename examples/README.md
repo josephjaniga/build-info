@@ -15,16 +15,16 @@ A working example using Vite that demonstrates:
 
 **Key takeaway**: Vite handles Node.js modules differently and works without issues.
 
-### ⚠️ [Next.js Example](./nextjs/)
+### ✅ [Next.js Example](./nextjs/)
 
-An example that demonstrates the **bundling issue** with Next.js:
+A working example using Next.js that demonstrates:
 
-- ❌ Webpack bundling errors
-- ❌ Node.js module resolution problems
-- ✅ Same React hook code as Vite
-- ✅ Identical functionality
+- ✅ Successful integration with Next.js
+- ✅ React hook usage with client-safe imports
+- ✅ Build process integration
+- ✅ No bundling issues
 
-**Key takeaway**: Next.js is stricter about Node.js modules and requires special handling.
+**Key takeaway**: Next.js works perfectly with the new client-safe import paths.
 
 ## The Problem
 
@@ -64,7 +64,7 @@ npm run build  # Should succeed
 ```bash
 cd nextjs
 npm install
-npm run build  # Should fail with webpack errors
+npm run build  # Should succeed without webpack errors
 ```
 
 ## Solutions
